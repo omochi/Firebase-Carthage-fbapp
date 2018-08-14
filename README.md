@@ -9,7 +9,7 @@ FirebaseのプロジェクトをCarthage(+手動ビルド構築)で構築した�
     (fbappcoreのビルドに入ったらCtrl-Cで中断して良いです)
 3. GoogleService-Info.plist を取り替える。
 
-# 構成
+# ビルド構成
 
 - fbappcore (https://github.com/omochi/Firebase-Carthage-fbappcore)
   
@@ -32,6 +32,15 @@ FirebaseのプロジェクトをCarthage(+手動ビルド構築)で構築した�
   
     アプリ本体。
     fbappcore と fbapplib に依存している。
+    
+# ソースコード構成
+
+fbappcoreにモデル(`struct Item`)が定義されていて、
+static funcで`Query`を返したりしている。
+
+fbapplibにはxib付きのViewControllerが入っていて、上記のモデルを読み書きする。
+
+fbappはAppDelegateで上記のVCを表示している。
 
 # 構築方法
 
@@ -81,6 +90,12 @@ fbappcoreはサブモジュールとして展開されているので、
 fbappで作業していてfbappcoreを修正した場合、
 `Carthage/Checkouts/fbappcore` に入ってコミット、プッシュできる。
 
+Carthageが依存解決してくれるので、fbappcoreに書いてあるFirebaseAnalyticsなどの依存が、
+fbappのCartfile.resolvedに展開される。
+Firebase関係のバージョンを記述するのはfbappcoreの一箇所なので、組み合わせミスが生じにくい。
+(static libraryなのでバイナリは使用されていないが、framework search pathsから
+定義を見にいくケースで参照される)
+
 # 気づいたこと
 
 Firebaseのcarthage向けバイナリはすべてstatic libraryになっている。
@@ -104,6 +119,7 @@ fbappcore, fbapplib, fbappすべてのターゲットで、
 Bitcodeを明示的に無効にする必要がある。
 Cocoapods向けの構成では有効になっているので謎だ。
 これについてはBitcodeがついたものを配布するようにお願いすれば解決する気がする。
+issueをたてた。 (https://github.com/firebase/firebase-ios-sdk/issues/1689)
 
 バイナリをダウンロードするために `$ carthage build` を実行する必要があるが、
 それによって不要なfbappcoreのコンパイルも開始してしまう。
