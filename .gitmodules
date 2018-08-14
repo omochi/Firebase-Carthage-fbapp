@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/Firebase-Carthage-fbappcore"]
+	path = Carthage/Checkouts/Firebase-Carthage-fbappcore
+	url = https://github.com/omochi/Firebase-Carthage-fbappcore.git

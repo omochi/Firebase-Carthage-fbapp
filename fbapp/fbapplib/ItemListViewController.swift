@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import fbappcore
 import FirebaseFirestore
 
 public class ItemListViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -21,12 +22,7 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private struct Item {
-        public var name: String
-        public var description: String
-    }
-    
+
     private var items: [Item] = [] {
         didSet {
             tableView.reloadData()
@@ -35,7 +31,7 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.items = [
             Item(name: "Parse", description: "Swift -> AST")
         ]
@@ -59,5 +55,20 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
         cell.detailTextLabel?.text = item.description
         
         return cell
+    }
+    
+    @IBAction private func onSetDummyButton() {
+        let dummy: [Item] = [
+            Item(name: "Parse", description: "Swift -> AST"),
+            Item(name: "Sema", description: "Type infer"),
+            Item(name: "SIL", description: "AST -> SIL"),
+            Item(name: "IRGen", description: "SIL -> LLVM")
+        ]
+        
+        let collection = Firestore.firestore().collection("items")
+        
+        for a in dummy {
+            collection.addDocument(data: a.toFirestore())
+        }
     }
 }

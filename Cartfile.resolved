@@ -1,2 +1,3 @@
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" "5.4.0"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFirestoreBinary.json" "5.4.0"
+github "omochi/Firebase-Carthage-fbappcore" "38115bb75f83e13a85f1aaae199e5cae0677a5d4"
