@@ -37,7 +37,7 @@ FirebaseのプロジェクトをCarthage(+手動ビルド構築)で構築した�
 
 fbappcoreは、プロジェクトとフレームワークを通常通りに作る。
 Cartfileを書く。このとき、Firebase関係のパッケージは、全て同じバージョンを `==` で指定する。
-詳細はこちら(https://github.com/firebase/firebase-ios-sdk/blob/master/Carthage.md)。
+詳細はこちら (https://github.com/firebase/firebase-ios-sdk/blob/master/Carthage.md) 。
 Cartfileを書いてから `$ carthage build` すると `Carthage/Build/iOS` に Firebase のライブラリがダウンロードされるので、
 これをまとめてXcodeのfbappcoreターゲットのLinked Frameworks and Librariesにドラッグアンドドロップする。
 ダウンロードされたライブラリが見つかるように、Framework Search Pathsを設定する。(`$(SRCROOT)/../Carthage/Build/iOS`)
@@ -93,7 +93,7 @@ Firebase系だけがstaticだがそれと異なる。
 
 `gRPCCertificates.bundle` は fbappcore のリソースにする必要があった。
 これがもし fbapp のリソースだと、gRPCがクラッシュしてしまう。
-このクラッシュについての情報があった(https://github.com/grpc/grpc/issues/14503)。
+このクラッシュについての情報があった (https://github.com/grpc/grpc/issues/14503) 。
 
 これはgRPCが内部でリソースバンドルを検索する際、
 プロセスのメインバンドルではなく、自身の所属するバンドルを見ているためだろう。
@@ -108,6 +108,6 @@ Cocoapods向けの構成では有効になっているので謎だ。
 バイナリをダウンロードするために `$ carthage build` を実行する必要があるが、
 それによって不要なfbappcoreのコンパイルも開始してしまう。
 これはCarthageの問題で、
-修正作業を進めているコントリビュータが居る(https://github.com/Carthage/Carthage/pull/2532)。
+修正作業を進めているコントリビュータが居る (https://github.com/Carthage/Carthage/pull/2532) 。
 これが解決すれば、 `$ carthage update --no-build --use-submodules` だけで良くなり、
 無駄な処理も走らなくなるはずだ。
