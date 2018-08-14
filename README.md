@@ -49,9 +49,9 @@ Cartfileを書く。このとき、Firebase関係のパッケージは、全て�
 詳細はこちら (https://github.com/firebase/firebase-ios-sdk/blob/master/Carthage.md) 。
 Cartfileを書いてから `$ carthage build` すると `Carthage/Build/iOS` に Firebase のライブラリがダウンロードされるので、
 これをまとめてXcodeのfbappcoreターゲットのLinked Frameworks and Librariesにドラッグアンドドロップする。
+ただしその後、`Firebase.framework`だけそこから削除する。
 ダウンロードされたライブラリが見つかるように、Framework Search Pathsを設定する。(`$(SRCROOT)/../Carthage/Build/iOS`)
 Other Linker Flagsに`-ObjC`を設定する。
-Enable Bitcodeを`NO`に設定する。
 `gRPC.framework/gRPCCertificates.bundle`をバンドルとして追加する。
 ビルドすると出てくるエラーをヒントに、システムの`StoreKit.framework`と`libsqlite3.tbd`をLinked Frameworks and Librariesに追加する。
 fbappcoreでimportしているパッケージは、どうやら自動でexportされているっぽい。
@@ -64,14 +64,12 @@ fbappはリポジトリをまたいだ依存があるのでxcworkspaceで作業�
 fbapplibは通常通りに作る。Linked Frameworks and Librariesに、同一ワークスペース内別プロジェクトのfbappcore.frameworkを指定する。
 実装においては適宜 `import fbappcore` や `import FirebaseFirestore` を記述する。
 fbappcoreでimportしているFirebase系のパッケージはこのままで利用可能。
-Enable Bitcodeを`NO`に設定する。
 間接exportされていないパッケージを使うためには、Framework Search Pathsを設定する。
 
 fbappを通常通りに作る。
 Linked Frameworks and LibrariesとEmbedded Binariesにfbapplib.frameworkとfbappcore.frameworkを指定する。
 正しく設定できていれば、fbappcore.frameworkについては、LocationがRelative to Build Productsになっていて、
 Build PhasesのEmbed Frameworksに設定が作られている。
-Enable Bitcodeを`NO`に設定する。
 間接exportされていないパッケージを使うためには、Framework Search Pathsを設定する。
 
 # 美味しいところ
@@ -96,13 +94,15 @@ Firebase関係のバージョンを記述するのはfbappcoreの一箇所なの
 (static libraryなのでバイナリは使用されていないが、framework search pathsから
 定義を見にいくケースで参照される)
 
+fbappcoreをビルドするときにシミュレータのバイナリなどがリンクされずに削ぎ落とされるので、
+Carthageの`copy-frameworks`関係の設定が不要。
+これはこのプロジェクトがビルドは自前で組んでいることによる。
+
 # 気づいたこと
 
 Firebaseのcarthage向けバイナリはすべてstatic libraryになっている。
 Cocoapods向けの場合は、依存しているBoringSSLやgRPCはすべてdynamicで、
 Firebase系だけがstaticだがそれと異なる。
-
-なぜかBitcodeがついていない。
 
 # 厳しいところ
 
@@ -114,12 +114,10 @@ Firebase系だけがstaticだがそれと異なる。
 プロセスのメインバンドルではなく、自身の所属するバンドルを見ているためだろう。
 ドキュメントには書いてなかったのでハマった。
 
-FirebaseのライブラリがなぜかBitcodeを設定していないため、
-fbappcore, fbapplib, fbappすべてのターゲットで、
-Bitcodeを明示的に無効にする必要がある。
-Cocoapods向けの構成では有効になっているので謎だ。
-これについてはBitcodeがついたものを配布するようにお願いすれば解決する気がする。
-issueをたてた。 (https://github.com/firebase/firebase-ios-sdk/issues/1689)
+`Firebase.framework` だけはヘッダだけの空のライブラリで、
+これをLinkから削除しないと、Bitcodeのエラーが出てしまう。
+Bitcodeのエラーが出るので紛らわしいが、これは中身が空だからそうなっているだけで、
+これ以外はちゃんとしている。
 
 バイナリをダウンロードするために `$ carthage build` を実行する必要があるが、
 それによって不要なfbappcoreのコンパイルも開始してしまう。
