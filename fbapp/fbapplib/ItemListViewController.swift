@@ -22,6 +22,10 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        listener?.remove()
+    }
 
     private var items: [Item] = [] {
         didSet {
@@ -29,12 +33,29 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
         }
     }
     
+    private var query: Query? {
+        didSet {
+            observe()
+        }
+    }
+    
+    private var listener: ListenerRegistration?
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
                 
         self.items = [
             Item(name: "Parse", description: "Swift -> AST")
         ]
+        
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.query = Item.query()
+        
+        observe()
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,6 +76,38 @@ public class ItemListViewController : UIViewController, UITableViewDelegate, UIT
         cell.detailTextLabel?.text = item.description
         
         return cell
+    }
+    
+    private func observe() {
+        unowned let uself = self
+        
+        listener?.remove()
+        
+        guard let query = self.query else { return }
+        
+        listener = query.addSnapshotListener({ (snapshot, error) in
+            if let error = error {
+                uself.showError(error)
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                return
+            }
+            
+            
+            let items = snapshot.documents.compactMap { (firestore) -> Item? in
+                return Item(firestore: firestore.data())
+            }
+            
+            self.items = items
+        })
+    }
+    
+    private func showError(_ error: Error) {
+        let ac = UIAlertController(title: "エラー", message: "\(error)", preferredStyle: UIAlertControllerStyle.alert)
+        ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(ac, animated: true, completion: nil)
     }
     
     @IBAction private func onSetDummyButton() {

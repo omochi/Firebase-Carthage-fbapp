@@ -11,7 +11,6 @@
 		D6E621E62122CFAA008F3DE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E621E52122CFAA008F3DE9 /* Assets.xcassets */; };
 		D6E621E92122CFAA008F3DE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E621E72122CFAA008F3DE9 /* LaunchScreen.storyboard */; };
 		D6E6221A2122E841008F3DE9 /* fbapplib.h in Headers */ = {isa = PBXBuildFile; fileRef = D6E622182122E841008F3DE9 /* fbapplib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D6E622242122E896008F3DE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6E622232122E895008F3DE9 /* GoogleService-Info.plist */; };
 		D6E622362122EB14008F3DE9 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E622352122EB14008F3DE9 /* ItemListViewController.swift */; };
 		D6E622382122EB5D008F3DE9 /* ItemListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6E622372122EB5D008F3DE9 /* ItemListViewController.xib */; };
 		D6E62282212301BA008F3DE9 /* fbapplib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6E622162122E841008F3DE9 /* fbapplib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -19,7 +18,7 @@
 		D6E6228421230201008F3DE9 /* fbappcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6E622772122FF66008F3DE9 /* fbappcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6E6228521230279008F3DE9 /* fbapplib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E622162122E841008F3DE9 /* fbapplib.framework */; };
 		D6E6228621230284008F3DE9 /* fbappcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E622772122FF66008F3DE9 /* fbappcore.framework */; };
-		D6E6228821230B23008F3DE9 /* gRPCCertificates.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6E6228721230B23008F3DE9 /* gRPCCertificates.bundle */; };
+		D6E6228C212311A0008F3DE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6E6228B212311A0008F3DE9 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,13 +71,12 @@
 		D6E622162122E841008F3DE9 /* fbapplib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = fbapplib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E622182122E841008F3DE9 /* fbapplib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fbapplib.h; sourceTree = "<group>"; };
 		D6E622192122E841008F3DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D6E622232122E895008F3DE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6E622352122EB14008F3DE9 /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		D6E622372122EB5D008F3DE9 /* ItemListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListViewController.xib; sourceTree = "<group>"; };
 		D6E622772122FF66008F3DE9 /* fbappcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fbappcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E6227921230030008F3DE9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D6E6227B2123003A008F3DE9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		D6E6228721230B23008F3DE9 /* gRPCCertificates.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = gRPCCertificates.bundle; path = ../../Carthage/Build/iOS/gRPC.framework/gRPCCertificates.bundle; sourceTree = "<group>"; };
+		D6E6228B212311A0008F3DE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +122,7 @@
 		D6E621DD2122CFA9008F3DE9 /* fbapp */ = {
 			isa = PBXGroup;
 			children = (
-				D6E6228721230B23008F3DE9 /* gRPCCertificates.bundle */,
-				D6E622232122E895008F3DE9 /* GoogleService-Info.plist */,
+				D6E6228B212311A0008F3DE9 /* GoogleService-Info.plist */,
 				D6E621DE2122CFA9008F3DE9 /* AppDelegate.swift */,
 				D6E621E52122CFAA008F3DE9 /* Assets.xcassets */,
 				D6E621E72122CFAA008F3DE9 /* LaunchScreen.storyboard */,
@@ -265,9 +262,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6E6228821230B23008F3DE9 /* gRPCCertificates.bundle in Resources */,
 				D6E621E92122CFAA008F3DE9 /* LaunchScreen.storyboard in Resources */,
-				D6E622242122E896008F3DE9 /* GoogleService-Info.plist in Resources */,
+				D6E6228C212311A0008F3DE9 /* GoogleService-Info.plist in Resources */,
 				D6E621E62122CFAA008F3DE9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
